@@ -5,11 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>cur_ry - Game Exploit Specialist</title>
 
-<!-- Fonts: Dave Moris (cursive) + Inter (clean sans-serif) -->
 <link href="https://fonts.googleapis.com/css2?family=Dave+Moris&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
 
 <style>
-  /* Reset */
   *, *::before, *::after {
     box-sizing: border-box;
   }
@@ -24,7 +22,6 @@
     position: relative;
   }
 
-  /* Background image container with blur */
   #background-blur {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -34,7 +31,6 @@
     z-index: 0;
   }
 
-  /* Dark overlay for contrast */
   #background-overlay {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -43,7 +39,6 @@
     pointer-events: none;
   }
 
-  /* Container for all content */
   #main {
     max-width: 900px;
     margin: 80px auto 100px;
@@ -63,7 +58,6 @@
     }
   }
 
-  /* Header */
   h1 {
     font-family: 'Dave Moris', cursive;
     font-size: 4rem;
@@ -75,7 +69,6 @@
     margin-bottom: 12px;
   }
 
-  /* Tagline */
   .tagline {
     font-size: 1.3rem;
     max-width: 600px;
@@ -85,7 +78,6 @@
     font-weight: 500;
   }
 
-  /* Section titles */
   h2 {
     font-family: 'Dave Moris', cursive;
     color: #00ffae;
@@ -93,7 +85,6 @@
     margin-bottom: 24px;
   }
 
-  /* Expertise section */
   #expertise {
     max-width: 700px;
     margin: 0 auto 50px;
@@ -113,7 +104,6 @@
     font-size: 1.1rem;
   }
 
-  /* Games section */
   .games {
     display: flex;
     flex-wrap: wrap;
@@ -174,7 +164,6 @@
     margin-bottom: 6px;
   }
 
-  /* Connect section */
   #connect {
     background: #111111cc;
     padding: 32px 36px;
@@ -208,7 +197,6 @@
     background-color: #00cc85;
   }
 
-  /* Responsive */
   @media (max-width: 600px) {
     h1 {
       font-size: 3rem;
@@ -227,7 +215,6 @@
     }
   }
 
-  /* Rain styles */
   #rain {
     pointer-events: none;
     position: fixed;
@@ -254,16 +241,10 @@
 </head>
 <body>
 
-<!-- Background image with blur -->
 <div id="background-blur"></div>
-
-<!-- Dark overlay -->
 <div id="background-overlay"></div>
-
-<!-- Rain container -->
 <div id="rain"></div>
 
-<!-- Main content -->
 <div id="main">
   <h1>cur_ry</h1>
   <p class="tagline">
@@ -333,14 +314,13 @@
     <ul>
       <li><span>Discord:</span> cur_ry <button onclick="copyToClipboard('cur_ry')">Copy</button></li>
       <li><span>Status:</span> Available</li>
-      <li><span>Response Time:</span> 24 Hours</li>
-      <li><span>Timezone:</span> EST</li>
+      <li><span>Response Time:</span> Within 24 hours</li>
+      <li><span>Timezone:</span> Flexible</li>
     </ul>
   </section>
 </div>
 
 <script>
-  // Rain effect
   const rainContainer = document.getElementById('rain');
   const dropsCount = 120;
 
@@ -356,15 +336,11 @@
     }
   }
 
-  // Initial rain creation
   createRain();
-
-  // Regenerate rain drops on window resize to cover full width
   window.addEventListener('resize', () => {
     createRain();
   });
-
-  // Copy Discord ID function
+  
   function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(() => {
       alert(`Copied to clipboard: ${text}`);

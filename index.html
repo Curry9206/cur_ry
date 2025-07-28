@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>cur_ry - Game Exploit Specialist</title>
+
+<!-- Fonts: Dave Moris (cursive) + Inter (clean sans-serif) -->
+<link href="https://fonts.googleapis.com/css2?family=Dave+Moris&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+
+<style>
+  /* Reset */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  html, body {
+    margin: 0; padding: 0;
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+    color: #e0e0e0;
+    overflow-y: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+  }
+
+  /* Background image container with blur */
+  #background-blur {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url('https://wallpapercave.com/wp/wp4794235.jpg') no-repeat center center fixed;
+    background-size: cover;
+    filter: blur(2px);
+    z-index: 0;
+  }
+
+  /* Dark overlay for contrast */
+  #background-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(10, 10, 10, 0.85);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Container for all content */
+  #main {
+    max-width: 900px;
+    margin: 80px auto 100px;
+    position: relative;
+    z-index: 2;
+    padding: 0 20px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s forwards 1s;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Header */
+  h1 {
+    font-family: 'Dave Moris', cursive;
+    font-size: 4rem;
+    color: #00ffae;
+    text-shadow:
+      0 0 6px #00ffae88,
+      0 0 12px #00ffaeaa,
+      0 0 24px #00ffaeee;
+    margin-bottom: 12px;
+  }
+
+  /* Tagline */
+  .tagline {
+    font-size: 1.3rem;
+    max-width: 600px;
+    margin: 0 auto 50px;
+    line-height: 1.5;
+    color: #b0b0b0;
+    font-weight: 500;
+  }
+
+  /* Section titles */
+  h2 {
+    font-family: 'Dave Moris', cursive;
+    color: #00ffae;
+    font-size: 2.4rem;
+    margin-bottom: 24px;
+  }
+
+  /* Expertise section */
+  #expertise {
+    max-width: 700px;
+    margin: 0 auto 50px;
+    color: #00ffae;
+    text-align: center;
+  }
+  #expertise h2 {
+    margin-bottom: 16px;
+  }
+  #expertise ul {
+    list-style: disc inside;
+    padding-left: 0;
+    text-align: left;
+    display: inline-block;
+    color: #b0f0cc;
+    font-weight: 500;
+    font-size: 1.1rem;
+  }
+
+  /* Games section */
+  .games {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 28px;
+    margin-bottom: 70px;
+  }
+  .game {
+    background: #111111cc;
+    border-radius: 14px;
+    width: 280px;
+    padding: 22px 16px;
+    cursor: pointer;
+    box-shadow:
+      0 0 12px #00ffae33,
+      inset 0 0 12px #00ffae44;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+    text-align: left;
+    color: #00ffae;
+  }
+  .game:hover {
+    transform: translateY(-6px);
+    box-shadow:
+      0 0 20px #00ffaebb,
+      inset 0 0 16px #00ffaecc;
+  }
+  .game-title {
+    font-family: 'Dave Moris', cursive;
+    font-size: 1.7rem;
+    margin-bottom: 8px;
+    user-select: none;
+  }
+  .visits {
+    color: #a0a0a0;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+  }
+  .exploits {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #b0f0cc;
+    margin-top: 10px;
+  }
+  .exploits h4 {
+    font-family: 'Dave Moris', cursive;
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+  }
+  .exploits ul {
+    list-style: disc;
+    margin-left: 18px;
+    color: #a0f0cc;
+  }
+  .exploits ul li {
+    margin-bottom: 6px;
+  }
+
+  /* Connect section */
+  #connect {
+    background: #111111cc;
+    padding: 32px 36px;
+    border-radius: 16px;
+    max-width: 700px;
+    margin: 0 auto 40px;
+    box-shadow:
+      0 0 18px #00ffae55;
+    text-align: left;
+    color: #00ffae;
+  }
+  #connect ul li span {
+    font-weight: 600;
+    color: #33ffb1;
+    min-width: 130px;
+    display: inline-block;
+  }
+  button {
+    background-color: #00ffae;
+    color: #111;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #00cc85;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 3rem;
+    }
+    .games {
+      flex-direction: column;
+      gap: 20px;
+    }
+    .game {
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+    #connect {
+      padding: 24px 20px;
+    }
+  }
+
+  /* Rain styles */
+  #rain {
+    pointer-events: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 1;
+  }
+  .drop {
+    position: absolute;
+    bottom: 100%;
+    width: 2px;
+    height: 15px;
+    background: rgba(255,255,255,0.15);
+    animation: fall linear infinite;
+    filter: drop-shadow(0 0 2px rgba(255,255,255,0.3));
+    border-radius: 50%;
+  }
+  @keyframes fall {
+    to {
+      transform: translateY(110vh);
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Background image with blur -->
+<div id="background-blur"></div>
+
+<!-- Dark overlay -->
+<div id="background-overlay"></div>
+
+<!-- Rain container -->
+<div id="rain"></div>
+
+<!-- Main content -->
+<div id="main">
+  <h1>cur_ry</h1>
+  <p class="tagline">
+    Focused on creating and preventing exploits in games.<br />
+    Experienced in analyzing, bypassing, and securing game systems against cheating.
+  </p>
+
+  <section id="expertise">
+    <h2>Expertise</h2>
+    <ul>
+      <li>Exploit Creation</li>
+      <li>Security Bypass Analysis</li>
+      <li>Game Vulnerability Prevention</li>
+      <li>System Exploit Testing</li>
+    </ul>
+  </section>
+
+  <section id="games" class="games" aria-label="Games worked on">
+    <div class="game" role="button" tabindex="0"
+         onclick="window.open('https://www.roblox.com/games/2414851778/Dungeon-Quest-RPG-Adventure', '_blank')"
+         onkeypress="if(event.key==='Enter'){this.click();}">
+      <div class="game-title">Dungeon Quest</div>
+      <div class="visits">2.2B+ visits</div>
+      <div class="exploits">
+        <h4>Exploits</h4>
+        <ul>
+          <li>Item Duplication</li>
+          <li>Stat Manipulation</li>
+          <li>Auto Complete Dungeons</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="game" role="button" tabindex="0"
+         onclick="window.open('https://www.roblox.com/games/2202352383/SPTS-Classic', '_blank')"
+         onkeypress="if(event.key==='Enter'){this.click();}">
+      <div class="game-title">SPTS Classic</div>
+      <div class="visits">250M+ visits</div>
+      <div class="exploits">
+        <h4>Exploits</h4>
+        <ul>
+          <li>Currency Manipulation</li>
+          <li>Invincibility/Godmode</li>
+          <li>Auto training</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="game" role="button" tabindex="0"
+         onclick="window.open('https://www.roblox.com/games/125503319883299/Arcane-Conquest', '_blank')"
+         onkeypress="if(event.key==='Enter'){this.click();}">
+      <div class="game-title">Arcane Conquest</div>
+      <div class="visits">7.0M+ visits</div>
+      <div class="exploits">
+        <h4>Exploits</h4>
+        <ul>
+          <li>Item Duplication</li>
+          <li>Invincibility/Godemode</li>
+          <li>Auto Complete Dungeons</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="connect">
+    <h2>Connect With Me</h2>
+    <ul>
+      <li><span>Discord:</span> cur_ry <button onclick="copyToClipboard('cur_ry')">Copy</button></li>
+      <li><span>Status:</span> Available</li>
+      <li><span>Response Time:</span> 24 Hours</li>
+      <li><span>Timezone:</span> EST</li>
+    </ul>
+  </section>
+</div>
+
+<script>
+  // Rain effect
+  const rainContainer = document.getElementById('rain');
+  const dropsCount = 120;
+
+  function createRain() {
+    rainContainer.innerHTML = '';
+    for(let i = 0; i < dropsCount; i++){
+      const drop = document.createElement('div');
+      drop.classList.add('drop');
+      drop.style.left = Math.random() * window.innerWidth + 'px';
+      drop.style.animationDuration = (0.6 + Math.random() * 0.9) + 's';
+      drop.style.animationDelay = Math.random() * 5 + 's';
+      rainContainer.appendChild(drop);
+    }
+  }
+
+  // Initial rain creation
+  createRain();
+
+  // Regenerate rain drops on window resize to cover full width
+  window.addEventListener('resize', () => {
+    createRain();
+  });
+
+  // Copy Discord ID function
+  function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+      alert(`Copied to clipboard: ${text}`);
+    }).catch(() => {
+      alert('Failed to copy');
+    });
+  }
+</script>
+
+</body>
+</html>
